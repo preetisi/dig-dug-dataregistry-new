@@ -3,7 +3,11 @@
     <navigation />
     <div class="main-container">
       <center-container>
-        <router-view />
+        <v-app>
+          <v-main>
+            <router-view />
+          </v-main>
+        </v-app>
       </center-container>
     </div>
     <sqreen-footer />
@@ -20,7 +24,11 @@ export default {
     SqreenFooter,
     Navigation
   },
-  name: "app",
+  name: "App",
+
+  data: () => ({
+    //
+  }),
   created: function() {
     if (this.$store.getters.isAuthenticated) {
       this.$store.dispatch(USER_REQUEST);

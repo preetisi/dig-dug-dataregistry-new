@@ -1,13 +1,12 @@
-/** * Created by vouill on 11/13/17. */
-
 <template>
   <div>
     <div class="headline">
-      <img src="../../assets/dog-profile.jpeg" />
-      <h1>Your doge profile</h1>
+      <img src="../../assets/broadlogo.jpeg" />
+      <h1>Welcome to KPN Data Registry</h1>
     </div>
     <p v-if="profile.name">
-      <strong>Name:</strong> {{ profile.title }} {{ profile.name }}
+      <strong>Name:</strong>
+      {{ profile.title }} {{ profile.name }}
     </p>
   </div>
 </template>

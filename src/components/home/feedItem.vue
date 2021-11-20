@@ -2,7 +2,7 @@
 
 <template>
   <div class="feed-item">
-    <h1>{{ feed.name }}</h1>
+    <h4>{{ feed.name }}</h4>
     <p>{{ feed.content }}</p>
   </div>
 </template>
@@ -10,7 +10,7 @@
 <style scoped>
 .feed-item {
   padding: 1em;
-  width: 350px;
+  width: 850px;
 }
 </style>
 <script>

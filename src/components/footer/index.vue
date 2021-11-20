@@ -1,9 +1,7 @@
 /** * Created by vouill on 11/14/17. */
 
 <template>
-  <div class="sq-footer">
-    Made w/ love @&nbsp;<a target="_blank" href="https://sqreen.io">Sqreen</a>
-  </div>
+  <div class="sq-footer">Broad Data Registry</div>
 </template>
 
 <style scoped>

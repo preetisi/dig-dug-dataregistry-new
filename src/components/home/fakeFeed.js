@@ -15,4 +15,4 @@ function generateFeed() {
   };
 }
 
-export default feedGenerator(10);
+export default feedGenerator(5);

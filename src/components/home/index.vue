@@ -1,16 +1,14 @@
-/** * Created by vouill on 11/13/17. */
-
 <template>
   <div>
     <loading v-if="loading" />
     <div v-if="isAuthenticated">
+      <h1>Welcome to KPN Data registry</h1>
       <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
     </div>
     <div v-if="!isAuthenticated && authStatus !== 'loading'">
-      <h1>Welcome to DogeBook !</h1>
+      <h1>Welcome to KPN Data Registry !</h1>
       <p>
-        When meeting new doge friends is harder than ever, Dogebook closes the
-        gap between all paws in the world
+        Please login or signup to register your datasets to KPN Data registry.
       </p>
       <login />
     </div>
