@@ -3,7 +3,7 @@
         <p class="headline">Register new dataset to Broad KPN Data registry</p>
 
         <div v-if="!submitted">
-            <v-form ref="form" lazy-validation>
+            <v-form width="1000px" ref="form" lazy-validation>
                 <v-text-field
                     v-model="dataset.datasetid"
                     :rules="[(v) => !!v || 'Dataset id is required']"
@@ -18,21 +18,27 @@
                 ></v-text-field>
 
                 <v-text-field
-                    v-model="dataset.description"
-                    :rules="[(v) => !!v || 'Description is required']"
-                    label="Description"
+                    v-model="dataset.status"
+                    :rules="[(v) => !!v || 'Status is required']"
+                    label="Status"
                     required
                 ></v-text-field>
                 <v-text-field
-                    v-model="dataset.summary"
-                    :rules="[(v) => !!v || 'Dataset summary is required']"
-                    label="Dataset Summary"
+                    v-model="dataset.Notes"
+                    :rules="[(v) => !!v || 'Dataset Notes are required']"
+                    label="Dataset Notes"
                     required
                 ></v-text-field>
                 <v-text-field
-                    v-model="dataset.urgency"
-                    :rules="[(v) => !!v || 'optional']"
-                    label="Urgency"
+                    v-model="dataset.Origin"
+                    :rules="[(v) => !!v || 'Origin required']"
+                    label="Origin"
+                    required
+                ></v-text-field>
+                <v-text-field
+                    v-model="dataset.PI"
+                    :rules="[(v) => !!v || 'PI name required']"
+                    label="Principal Investigator"
                     required
                 ></v-text-field>
             </v-form>
@@ -65,10 +71,7 @@ export default {
         return {
             dataset: {
                 id: null,
-                datasetid: "",
-                username: "",
-                description: "",
-                published: false
+                dataset_id: ""
             },
             submitted: false
         };
@@ -81,15 +84,17 @@ export default {
         saveTutorial() {
             var data = {
                 username: this.dataset.username,
-                description: this.dataset.description,
-                datasetid: this.dataset.datasetid,
-                summary: this.dataset.summary,
-                urgency: this.dataset.urgency
+                dataset_id: this.dataset.dataset_id,
+                datasetname: this.dataset.datasetname,
+                status: this.dataset.status,
+                Notes: this.dataset.notes,
+                PI: this.dataset.PI,
+                Origin: this.dataset.Origin
             };
 
-            DatasetRegService.create(data)
+            DataRegistrationService.create(data)
                 .then(response => {
-                    this.dataset.id = response.data.id;
+                    this.dataset.id = response.data.dataset_id;
                     console.log(response.data);
                     this.submitted = true;
                 })

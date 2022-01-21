@@ -1,33 +1,32 @@
 <template>
-    <v-row align="center" class="list px-3 mx-auto">
-        <v-col cols="12" md="8">
-            <v-text-field v-model="dataset" label="Search by Dataset name"></v-text-field>
-        </v-col>
+    <v-row align="center" class="list">
+        <!-- <v-col cols="12" md="8">
+            <v-text-field v-model="dataset_id" label="Search by Dataset id"></v-text-field>
+        </v-col>-->
 
-        <v-col cols="12" md="4">
-            <v-btn small @click="searchByDatasetName">Search</v-btn>
+        <v-col>
+            <v-btn small @click="searchByDatasetID">Search</v-btn>
         </v-col>
 
         <v-col cols="12" sm="12">
-            <v-card class="mx-auto" tile>
-                <v-card-title>datasets</v-card-title>
+            <v-card-title>Registered Datasets</v-card-title>
 
-                <v-data-table
-                    :headers="headers"
-                    :items="datasets"
-                    disable-pagination
-                    :hide-default-footer="true"
-                >
-                    <template v-slot:item.actions="item">
-                        <v-icon small class="mr-2" @click="editTutorial(item.id)">mdi-pencil</v-icon>
-                        <v-icon small @click="deleteTutorial(item.id)">mdi-delete</v-icon>
-                    </template>
-                </v-data-table>
+            <v-data-table
+                style="width = 100%"
+                :headers="headers"
+                :items="datasets"
+                disable-pagination
+                :hide-default-footer="true"
+            >
+                <template v-slot:item.actions="item">
+                    <v-icon small class="mr-2" @click="editTutorial(item.id)">mdi-pencil</v-icon>
+                    <v-icon small @click="deleteTutorial(item.id)">mdi-delete</v-icon>
+                </template>
+            </v-data-table>
 
-                <v-card-actions v-if="datasets.length > 0">
-                    <v-btn small color="error" @click="removeAllTutorials">Remove All</v-btn>
-                </v-card-actions>
-            </v-card>
+            <v-card-actions v-if="datasets.length > 0">
+                <v-btn small color="error" @click="removeAllTutorials">Remove All</v-btn>
+            </v-card-actions>
         </v-col>
     </v-row>
 </template>
@@ -41,6 +40,7 @@ export default {
     data() {
         return {
             datasets: [],
+            dataset_id: "",
             username: "",
             name: "datasets-list",
             currentTutorial: null,
@@ -48,14 +48,30 @@ export default {
             dataset: "",
             headers: [
                 {
-                    text: "datasetid",
+                    text: "Dataset Name",
                     align: "start",
                     sortable: false,
-                    value: "datasetid"
+                    value: "datasetname"
                 },
-                { text: "Description", value: "description", sortable: false },
-                { text: "Status", value: "status", sortable: false },
-                { text: "Actions", value: "actions", sortable: false }
+                {
+                    text: "Username",
+                    align: "start",
+                    sortable: false,
+                    value: "username"
+                },
+                {
+                    text: "PI",
+                    align: "start",
+                    sortable: false,
+                    value: "PI"
+                },
+                {
+                    text: "Origin",
+                    align: "start",
+                    sortable: false,
+                    value: "Origin"
+                },
+                { text: "status", value: "status", sortable: false }
             ]
         };
     },
@@ -69,8 +85,14 @@ export default {
         retrieveTutorials() {
             DataRegistrationService.getAll()
                 .then(response => {
-                    this.datasets = response.data.map(this.getDisplayTutorial);
-                    console.log(response.data);
+                    this.datasets = response.data
+                        .map(this.getDisplayTutorial)
+                        .filter(x => x.datasetname !== "")
+                        .filter(x => x.datasetid !== "");
+
+                    console.log(
+                        response.data.filter(x => x.datasetname !== "")
+                    );
                 })
                 .catch(e => {
                     console.log(e);
@@ -99,12 +121,12 @@ export default {
                 });
         },
 
-        searchByDatasetName() {
-            DataRegistrationService.findByUsername(this.username)
+        searchByDatasetID() {
+            DataRegistrationService.findByDatasetId(this.dataset_id)
                 .then(response => {
-                    this.datasets = response.data;
-                    this.setActiveTutorial(null);
-                    console.log("filtered by dataset name", response.data);
+                    this.datasets = response.data.map(this.getDisplayTutorial);
+
+                    console.log("filtered by dataset id", response.data);
                 })
                 .catch(e => {
                     console.log(e);
@@ -115,16 +137,13 @@ export default {
         },
         getDisplayTutorial(tutorial) {
             return {
-                id: tutorial.id,
-                datasetid:
-                    tutorial.username.length > 30
-                        ? tutorial.datasetid.substr(0, 30) + "..."
-                        : tutorial.datasetid,
-                description:
-                    tutorial.description.length > 30
-                        ? tutorial.description.substr(0, 30) + "..."
-                        : tutorial.description,
-                status: tutorial.published ? "Published" : "Pending"
+                dataset_id: tutorial.dataset_id,
+                datasetname: tutorial.datasetname,
+                status: tutorial.status,
+                Origin: tutorial.Origin,
+                PI: tutorial.PI,
+
+                username: tutorial.username
             };
         }
     },

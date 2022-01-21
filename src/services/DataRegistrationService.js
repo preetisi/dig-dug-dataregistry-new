@@ -5,8 +5,8 @@ class DataRegistrationService {
     return http.get("/datasets");
   }
 
-  get(id) {
-    return http.get(`/datasets/${id}`);
+  get(datasetname) {
+    return http.get(`/datasets/${datasetname}`);
   }
 
   create(data) {
@@ -25,8 +25,8 @@ class DataRegistrationService {
     return http.delete(`/datasets`);
   }
 
-  findByUsername(username) {
-    return http.get(`/datasets?username=${username}`);
+  findByDatasetId(dataset_id) {
+    return http.get(`/datasets?dataset_id=${dataset_id}`);
   }
 }
 

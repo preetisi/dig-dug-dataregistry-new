@@ -1,15 +1,7 @@
 <template>
     <v-row align="center" class="list px-3 mx-auto">
-        <v-col cols="12" md="8">
-            <v-text-field v-model="dataset" label="Search by Dataset name"></v-text-field>
-        </v-col>
-
-        <v-col cols="12" md="4">
-            <v-btn small @click="searchByDatasetName">Search</v-btn>
-        </v-col>
-
         <v-col cols="12" sm="12">
-            <v-card class="mx-auto" tile>
+            <v-card class="mx-auto">
                 <v-card-title>datasets</v-card-title>
 
                 <v-data-table
@@ -48,14 +40,30 @@ export default {
             dataset: "",
             headers: [
                 {
-                    text: "datasetid",
+                    text: "Dataset Name",
                     align: "start",
                     sortable: false,
-                    value: "datasetid"
+                    value: "datasetname"
                 },
-                { text: "Description", value: "description", sortable: false },
-                { text: "Status", value: "status", sortable: false },
-                { text: "Actions", value: "actions", sortable: false }
+                {
+                    text: "Username",
+                    align: "start",
+                    sortable: false,
+                    value: "username"
+                },
+                {
+                    text: "PI",
+                    align: "start",
+                    sortable: false,
+                    value: "PI"
+                },
+                {
+                    text: "Origin",
+                    align: "start",
+                    sortable: false,
+                    value: "Origin"
+                },
+                { text: "status", value: "status", sortable: false }
             ]
         };
     },
@@ -69,7 +77,10 @@ export default {
         retrieveTutorials() {
             DataRegistrationService.getAll()
                 .then(response => {
-                    this.datasets = response.data.map(this.getDisplayTutorial);
+                    this.datasets = response.data
+                        .map(this.getDisplayTutorial)
+                        .filter(x => x.datasetname !== "")
+                        .filter(x => x.datasetid !== "");
                     console.log(response.data);
                 })
                 .catch(e => {
@@ -115,16 +126,13 @@ export default {
         },
         getDisplayTutorial(tutorial) {
             return {
-                id: tutorial.id,
-                datasetid:
-                    tutorial.username.length > 30
-                        ? tutorial.datasetid.substr(0, 30) + "..."
-                        : tutorial.datasetid,
-                description:
-                    tutorial.description.length > 30
-                        ? tutorial.description.substr(0, 30) + "..."
-                        : tutorial.description,
-                status: tutorial.published ? "Published" : "Pending"
+                dataset_id: tutorial.dataset_id,
+                datasetname: tutorial.datasetname,
+                status: tutorial.status,
+                Origin: tutorial.Origin,
+                PI: tutorial.PI,
+
+                username: tutorial.username
             };
         }
     },
