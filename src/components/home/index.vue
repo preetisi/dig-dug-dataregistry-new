@@ -1,25 +1,26 @@
 <template>
-  <div>
-    <loading v-if="loading" />
-    <div v-if="isAuthenticated">
-      <h1>Welcome to KPN Data registry</h1>
-      <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
+    <div>
+        <loading v-if="loading" />
+        <div v-if="isAuthenticated">
+            <h1>Welcome to KPN Data registry</h1>
+            <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
+        </div>
+        <div v-if="!isAuthenticated && authStatus !== 'loading'">
+            <h1>Welcome to KPN Data Registry !</h1>
+            <p>Please login or signup to register your datasets to KPN Data registry.</p>
+
+            <v-btn @click="shownSignin()" block elevation="2">Sign in</v-btn>
+            <span>&nbsp;</span>
+            <v-btn @click="showSignup()" block elevation="2">Sign up</v-btn>
+        </div>
     </div>
-    <div v-if="!isAuthenticated && authStatus !== 'loading'">
-      <h1>Welcome to KPN Data Registry !</h1>
-      <p>
-        Please login or signup to register your datasets to KPN Data registry.
-      </p>
-      <login />
-    </div>
-  </div>
 </template>
 
 <style>
 .home {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 </style>
 
@@ -28,21 +29,30 @@ import fakeFeed from "./fakeFeed";
 import FeedItem from "./feedItem.vue";
 import { mapGetters } from "vuex";
 import Login from "components/login";
+import Signup from "components/signup";
 
 export default {
-  components: {
-    Login,
-    FeedItem
-  },
-  name: "home",
-  computed: {
-    ...mapGetters(["isAuthenticated", "authStatus"]),
-    loading: function() {
-      return this.authStatus === "loading" && !this.isAuthenticated;
+    components: {
+        Login,
+        FeedItem,
+        Signup
+    },
+    name: "home",
+    methods: {},
+    computed: {
+        shownSignin: function() {
+            this.$router.push("/login");
+        },
+        shownSignup() {
+            this.$router.push("/signup");
+        },
+        ...mapGetters(["isAuthenticated", "authStatus"]),
+        loading: function() {
+            return this.authStatus === "loading" && !this.isAuthenticated;
+        }
+    },
+    data() {
+        return { fakeFeed };
     }
-  },
-  data() {
-    return { fakeFeed };
-  }
 };
 </script>

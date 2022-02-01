@@ -9,6 +9,7 @@ import DatasetsList from "components/datasetsList";
 import Datasets from "components/dataset";
 
 import Login from "components/login";
+import Signup from "components/signup";
 import store from "../store";
 
 Vue.use(Router);
@@ -73,6 +74,12 @@ export default new Router({
       path: "/login",
       name: "Login",
       component: Login,
+      beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: "/signup",
+      name: "Signup",
+      component: Signup,
       beforeEnter: ifNotAuthenticated
     }
   ]

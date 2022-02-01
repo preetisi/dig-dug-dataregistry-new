@@ -11,7 +11,7 @@
         <ul>
             <li v-if="isProfileLoaded">
                 <router-link to="/account">{{ name }}</router-link>
-                <router-link style="padding:10px" to="/account2">testing</router-link>
+            
                 <router-link style="padding:10px" to="/dataset">Dataset</router-link>
                 <router-link to="/addDatasets">Add Datasets</router-link>
                 <router-link style="padding:10px" to="/datasetsList">Registered Datasets</router-link>

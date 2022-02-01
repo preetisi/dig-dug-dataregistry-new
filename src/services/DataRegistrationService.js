@@ -28,6 +28,9 @@ class DataRegistrationService {
   findByDatasetId(dataset_id) {
     return http.get(`/datasets?dataset_id=${dataset_id}`);
   }
+  findByName(name) {
+    return http.get(`/datasets?name=${name}`);
+  }
 }
 
 export default new DataRegistrationService();

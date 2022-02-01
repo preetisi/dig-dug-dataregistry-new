@@ -1,8 +1,8 @@
 <template>
     <v-row align="center" class="list">
-        <!-- <v-col cols="12" md="8">
+        <v-col cols="12" md="8">
             <v-text-field v-model="dataset_id" label="Search by Dataset id"></v-text-field>
-        </v-col>-->
+        </v-col>
 
         <v-col>
             <v-btn small @click="searchByDatasetID">Search</v-btn>
@@ -34,7 +34,7 @@
 <script>
 import DataRegistrationService from "/Users/psingh/broadProjects/vue-authentication-example/src/services/DataRegistrationService.js";
 import { mapGetters, mapState } from "vuex";
-
+import index from "/Users/psingh/broadProjects/vue-authentication-example/src/components/login/index.vue";
 export default {
     name: "datasetsList",
     data() {
@@ -124,7 +124,10 @@ export default {
         searchByDatasetID() {
             DataRegistrationService.findByDatasetId(this.dataset_id)
                 .then(response => {
-                    this.datasets = response.data.map(this.getDisplayTutorial);
+                    this.datasets = response.data
+                        .map(this.getDisplayTutorial)
+                        .filter(x => x.datasetname !== "")
+                        .filter(x => x.datasetid !== "");
 
                     console.log("filtered by dataset id", response.data);
                 })
