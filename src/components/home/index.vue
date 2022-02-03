@@ -4,14 +4,17 @@
         <div v-if="isAuthenticated">
             <h1>Welcome to KPN Data registry</h1>
             <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
+            <v-btn to="/datasetsList" block elevation="2">Registered datasets</v-btn>
+            <span>&nbsp;</span>
+            <v-btn to="/addDatasets" block elevation="2">Add new datasets</v-btn>
         </div>
         <div v-if="!isAuthenticated && authStatus !== 'loading'">
             <h1>Welcome to KPN Data Registry !</h1>
             <p>Please login or signup to register your datasets to KPN Data registry.</p>
 
-            <v-btn @click="shownSignin()" block elevation="2">Sign in</v-btn>
+            <v-btn to="/login" block elevation="2">Sign in</v-btn>
             <span>&nbsp;</span>
-            <v-btn @click="showSignup()" block elevation="2">Sign up</v-btn>
+            <v-btn to="/signup" block elevation="2">Sign up</v-btn>
         </div>
     </div>
 </template>
@@ -37,6 +40,7 @@ export default {
         FeedItem,
         Signup
     },
+
     name: "home",
     methods: {},
     computed: {

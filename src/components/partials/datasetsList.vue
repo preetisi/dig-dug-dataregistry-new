@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import DataRegistrationService from "/Users/psingh/broadProjects/vue-authentication-example/src/services/DataRegistrationService.js";
+import DataRegistrationService from "/src/services/DataRegistrationService.js";
 import { mapGetters, mapState } from "vuex";
 
 export default {

@@ -10,7 +10,7 @@
             <label>Password</label>
             <input required v-model="password" type="password" />
             <hr />
-            <button class="button is-primary">Submit</button>
+            <button class="button is-primary">Register</button>
         </form>
     </div>
 </template>

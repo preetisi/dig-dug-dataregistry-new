@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import DataRegistrationService from "/Users/psingh/broadProjects/vue-authentication-example/src/services/DataRegistrationService.js";
+import DataRegistrationService from "/src/services/DataRegistrationService.js";
 import { mapGetters, mapState } from "vuex";
-import index from "/Users/psingh/broadProjects/vue-authentication-example/src/components/login/index.vue";
+import index from "/src/components/login/index.vue";
 export default {
     name: "datasetsList",
     data() {

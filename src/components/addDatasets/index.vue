@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import DataRegistrationService from "/Users/psingh/broadProjects/vue-authentication-example/src/services/DataRegistrationService.js";
-import DatasetsList from "/Users/psingh/broadProjects/vue-authentication-example/src/components/partials/datasetsList.vue";
+import DataRegistrationService from "/src/services/DataRegistrationService.js";
+import DatasetsList from "/src/components/partials/datasetsList.vue";
 
 export default {
     name: "addDatasets",
