@@ -1,11 +1,11 @@
 <template>
     <v-row align="center" class="list">
         <v-col cols="12" md="8">
-            <v-text-field v-model="dataset_id" label="Search by Dataset id"></v-text-field>
+            <v-text-field v-model="dataset_id" label="Search by email id"></v-text-field>
         </v-col>
 
         <v-col>
-            <v-btn small @click="searchByDatasetID">Search</v-btn>
+            <v-btn small @click="searchByEmailID">Search</v-btn>
         </v-col>
 
         <v-col cols="12" sm="12">
@@ -48,30 +48,65 @@ export default {
             dataset: "",
             headers: [
                 {
-                    text: "Dataset Name",
+                    text: "Email id",
                     align: "start",
                     sortable: false,
-                    value: "datasetname"
+                    value: "emailid"
                 },
                 {
-                    text: "Username",
+                    text: "Publication",
                     align: "start",
                     sortable: false,
-                    value: "username"
+                    value: "publication"
                 },
                 {
-                    text: "PI",
+                    text: "Phenotype",
                     align: "start",
                     sortable: false,
-                    value: "PI"
+                    value: "phenotype"
                 },
                 {
-                    text: "Origin",
+                    text: "Ancestry",
                     align: "start",
                     sortable: false,
-                    value: "Origin"
+                    value: "ancestry"
                 },
-                { text: "status", value: "status", sortable: false }
+                {
+                    text: "Technology",
+                    align: "start",
+                    sortable: false,
+                    value: "technology"
+                },
+                {
+                    text: "Dichotomous",
+                    align: "start",
+                    sortable: false,
+                    value: "dichotomous"
+                },
+                {
+                    text: "Continuous",
+                    align: "start",
+                    sortable: false,
+                    value: "continuous"
+                },
+                {
+                    text: "Case",
+                    align: "start",
+                    sortable: false,
+                    value: "case"
+                },
+                {
+                    text: "Control",
+                    align: "start",
+                    sortable: false,
+                    value: "control"
+                },
+                {
+                    text: "Sample size",
+                    align: "start",
+                    sortable: false,
+                    value: "samplesize"
+                }
             ]
         };
     },
@@ -121,15 +156,15 @@ export default {
                 });
         },
 
-        searchByDatasetID() {
-            DataRegistrationService.findByDatasetId(this.dataset_id)
+        searchByEmailID() {
+            DataRegistrationService.findByEmailid(this.emailid)
                 .then(response => {
                     this.datasets = response.data
                         .map(this.getDisplayTutorial)
-                        .filter(x => x.datasetname !== "")
-                        .filter(x => x.datasetid !== "");
+                        .filter(x => x.emailid !== "")
+                        .filter(x => x.publication !== "");
 
-                    console.log("filtered by dataset id", response.data);
+                    console.log("filtered by email id", response.data);
                 })
                 .catch(e => {
                     console.log(e);
@@ -140,13 +175,18 @@ export default {
         },
         getDisplayTutorial(tutorial) {
             return {
-                dataset_id: tutorial.dataset_id,
-                datasetname: tutorial.datasetname,
-                status: tutorial.status,
-                Origin: tutorial.Origin,
-                PI: tutorial.PI,
-
-                username: tutorial.username
+                emailid: tutorial.emailid,
+                publication: tutorial.publication,
+                phenotype: tutorial.phenotype,
+                ancestry: tutorial.ancestry,
+                technology: tutorial.technology,
+                dichotomous: tutorial.dichotomous
+                    ? tutorial.dichotomous
+                    : false,
+                continuous: tutorial.continuous ? tutorial.continuous : false,
+                case: tutorial.case,
+                control: tutorial.control,
+                samplesize: tutorial.samplesize
             };
         }
     },
@@ -160,7 +200,7 @@ export default {
 <style>
 .list {
     text-align: left;
-    max-width: 750px;
+    max-width: 1250px;
     margin: auto;
 }
 </style>

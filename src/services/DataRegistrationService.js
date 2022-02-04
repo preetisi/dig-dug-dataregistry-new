@@ -2,34 +2,45 @@ import http from "../http-common";
 
 class DataRegistrationService {
   getAll() {
-    return http.get("/datasets");
+    return http.get("/registereddatasets");
   }
 
   get(datasetname) {
-    return http.get(`/datasets/${datasetname}`);
+    return http.get(`/registereddatasets/${datasetname}`);
   }
 
   create(data) {
-    return http.post("/datasets", data);
+    return http.post("/registereddatasets", data);
+  }
+
+  getAllUsers() {
+    return http.get("/registreduser");
+  }
+  getAUser(emailid) {
+    return http.get(`/registreduser/${emailid}`);
+  }
+
+  createUser(data) {
+    return http.post("/registreduser", data);
   }
 
   update(id, data) {
-    return http.put(`/datasets/${id}`, data);
+    return http.put(`/registereddatasets/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/datasets/${id}`);
+    return http.delete(`/registereddatasets/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/datasets`);
+    return http.delete(`/registereddatasets`);
   }
 
-  findByDatasetId(dataset_id) {
-    return http.get(`/datasets?dataset_id=${dataset_id}`);
+  findByEmailid(emailid) {
+    return http.get(`/registereddatasets?emailid=${emailid}`);
   }
   findByName(name) {
-    return http.get(`/datasets?name=${name}`);
+    return http.get(`/registereddatasets?name=${name}`);
   }
 }
 

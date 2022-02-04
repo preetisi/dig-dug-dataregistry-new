@@ -173,6 +173,7 @@ export default {
 <style>
 .submit-form {
     margin: auto;
+    max-width: 1500px;
 }
 .radiostyle {
     opacity: 1;
