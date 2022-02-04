@@ -19,6 +19,7 @@ import Navigation from "components/navigation";
 import { USER_REQUEST } from "actions/user";
 import SqreenFooter from "./components/footer/index.vue";
 
+
 export default {
   components: {
     SqreenFooter,

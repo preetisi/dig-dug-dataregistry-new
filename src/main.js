@@ -7,11 +7,16 @@ import store from "./store";
 import Loading from "components/lib/loading";
 import CenterContainer from "components/lib/center-container";
 import vuetify from "./plugins/vuetify";
-
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.config.productionTip = false;
 
 Vue.component("loading", Loading);
 Vue.component("center-container", CenterContainer);
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
