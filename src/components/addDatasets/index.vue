@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="submit-form">
         <p class="headline">Register new dataset to Broad KPN Data registry</p>
 
         <div v-if="!submitted">
@@ -9,51 +9,29 @@
                     :rules="[(v) => !!v || 'Email id is required']"
                     label="Email ID"
                     required
+                    outlined
+                    dense
                 ></v-text-field>
                 <v-text-field
                     v-model="dataset.publication"
                     :rules="[(v) => !!v || 'Publication is required']"
                     label="Publication link"
                     required
+                    outlined
+                    dense
                 ></v-text-field>
                 <v-text-field
                     v-model="dataset.phenotypes"
                     :rules="[(v) => !!v || 'Phenotype name is required']"
                     label="Phenotype Name"
                     required
+                    outlined
+                    dense
                 ></v-text-field>
+                <!-- Ancestries -->
+                <v-select v-model="dataset.ancestry" :items="ancestries" label="Ancestries" dense></v-select>
+                <v-select v-model="dataset.tech" :items="tech" label="Technology" dense></v-select>
 
-                <v-text-field
-                    v-model.number="dataset.samplesize"
-                    type="number"
-                    :rules="[(v) => !!v || 'Sample Size is required']"
-                    label="Sample Size"
-                    required
-                ></v-text-field>
-                <!-- <span>Pick the category of your Phenotype</span> -->
-
-                <!-- <select v-model="ancestry">
-                    <option
-                        v-for="ancestor in ancestries"
-                        v-bind:value="ancestor.value"
-                    >{{ ancestor.text }}</option>
-                </select>
-                <span>Selected: {{ ancestry }}</span>-->
-                &nbsp;&nbsp;
-                <!-- <Dropdown
-                    :options="[{ id: 1, name: 'Option 1'}, { id: 2, name: 'Option 2'}]"
-                    v-on:selected="validateSelection"
-                    v-on:filter="getDropdownValues"
-                    :disabled="false"
-                    name="zipcode"
-                    :maxItem="10"
-                    placeholder="Please select an option"
-                ></Dropdown>-->
-
-                <select v-model="ancestry">
-                    <option disabled value>Please select one of the ancestries</option>
-                    <option v-for="ancestor in ancestries" :value="ancestor.value">{{ancestor.text}}</option>
-                </select>
                 <br />
                 <span>&nbsp;</span>
                 <input type="radio" id="dichotomous" value="Dichotomous" v-model="picked" />
@@ -105,15 +83,15 @@
 
         <div v-else>
             <v-card>
-                <v-card-title>Submitted successfully!</v-card-title>
+                <v-card-title>Dataset Submitted successfully! Tracking id of this submission is {{trackingnumber}}</v-card-title>
 
-                <v-card-subtitle>Click the button to add new Tutorial.</v-card-subtitle>
+                <v-card-subtitle>Click the button to add new Dataset.</v-card-subtitle>
 
                 <v-card-actions>
                     <v-btn color="success" @click="newTutorial">Add</v-btn>
                 </v-card-actions>
             </v-card>
-            <datasetsList></datasetsList>
+            <v-btn to="/datasetsList" block elevation="2">View your registered datasets</v-btn>
         </div>
     </div>
 </template>
@@ -133,6 +111,7 @@ export default {
             picked: "",
             Dichotomous: true,
             Continuous: false,
+            trackingnumber: 123,
 
             dataset: {
                 id: null,
@@ -141,10 +120,15 @@ export default {
             submitted: false,
             ancestry: "",
             ancestries: [
-                { text: "One", value: "A" },
-                { text: "Two", value: "B" },
-                { text: "Three", value: "C" }
-            ]
+                { text: "African American", value: "AA" },
+                { text: "Eruropean American", value: "EA" },
+                { text: "African", value: "AF" },
+                { text: "Eruropean", value: "EU" },
+                { text: "Hispanic", value: "HS" },
+                { text: "South American", value: "SA" },
+                { text: "Mixed", value: "Mixed" }
+            ],
+            tech: ["GWAS", "ExChip", "ExSeq", "FM", "IChip", "WGS"]
         };
     },
     components: {
@@ -155,18 +139,21 @@ export default {
     methods: {
         saveTutorial() {
             var data = {
-                username: this.dataset.username,
-                dataset_id: this.dataset.dataset_id,
-                datasetname: this.dataset.datasetname,
-                status: this.dataset.status,
-                Notes: this.dataset.notes,
-                PI: this.dataset.PI,
-                Origin: this.dataset.Origin
+                emailid: this.dataset.emailid,
+                publication: this.dataset.publication,
+                phenotype: this.dataset.phenotype,
+                ancestry: this.dataset.ancestry,
+                technology: this.dataset.technology,
+                dichotomous: this.dataset.dichotomous,
+                continuous: this.dataset.continuous,
+                case: this.dataset.case,
+                control: this.dataset.control,
+                samplesize: this.dataset.samplesize
             };
 
             DataRegistrationService.create(data)
                 .then(response => {
-                    this.dataset.id = response.data.dataset_id;
+                    this.dataset.emaild = response.data.emailid;
                     console.log(response.data);
                     this.submitted = true;
                 })
@@ -185,6 +172,9 @@ export default {
 
 <style>
 .submit-form {
-    max-width: 300px;
+    margin: auto;
+}
+.radiostyle {
+    opacity: 1;
 }
 </style>
