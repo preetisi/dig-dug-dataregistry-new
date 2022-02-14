@@ -4,14 +4,22 @@
 
         <div v-if="!submitted">
             <v-form ref="form" lazy-validation>
-                <!-- <v-text-field
+                <v-text-field
                     v-model="dataset.emailid"
                     :rules="[(v) => !!v || 'Email id is required']"
                     label="Email ID"
                     required
                     outlined
                     dense
-                ></v-text-field>-->
+                ></v-text-field>
+                <v-text-field
+                    v-model="dataset.datasetname"
+                    :rules="[(v) => !!v || 'Dataset Name is required']"
+                    label="Dataset Name"
+                    required
+                    outlined
+                    dense
+                ></v-text-field>
                 <v-text-field
                     v-model="dataset.publication"
                     :rules="[(v) => !!v || 'Publication is required']"
@@ -21,7 +29,7 @@
                     dense
                 ></v-text-field>
                 <v-text-field
-                    v-model="dataset.phenotypes"
+                    v-model="dataset.phenotype"
                     :rules="[(v) => !!v || 'Phenotype name is required']"
                     label="Phenotype Name"
                     required
@@ -30,7 +38,7 @@
                 ></v-text-field>
                 <!-- Ancestries -->
                 <v-select v-model="dataset.ancestry" :items="ancestries" label="Ancestries" dense></v-select>
-                <v-select v-model="dataset.tech" :items="tech" label="Technology" dense></v-select>
+                <v-select v-model="dataset.technology" :items="tech" label="Technology" dense></v-select>
 
                 <br />
                 <span>&nbsp;</span>
@@ -62,7 +70,7 @@
                 ></v-text-field>
                 <v-text-field
                     v-if="picked == `Dichotomous`"
-                    v-model.number="dataset.totalsamplesize"
+                    v-model.number="dataset.samplesize"
                     type="number"
                     :rules="[(v) => !!v || 'Total Sample Size is required']"
                     label="Total Sample Size"
@@ -70,7 +78,7 @@
                 ></v-text-field>
                 <v-text-field
                     v-if="picked == `Continuous`"
-                    v-model.number="dataset.totalsamplesize"
+                    v-model.number="dataset.samplesize"
                     type="number"
                     :rules="[(v) => !!v || 'Total Sample Size is required']"
                     label="Total Sample Size"
@@ -111,7 +119,7 @@ export default {
             picked: "",
             Dichotomous: true,
             Continuous: false,
-            trackingnumber: 123,
+            trackingnumber: Math.floor(Math.random() * 35897) + "_GWAS",
 
             dataset: {
                 id: null,
@@ -140,6 +148,7 @@ export default {
         saveTutorial() {
             var data = {
                 emailid: this.dataset.emailid,
+                datasetname: this.dataset.datasetname,
                 publication: this.dataset.publication,
                 phenotype: this.dataset.phenotype,
                 ancestry: this.dataset.ancestry,

@@ -54,7 +54,7 @@ export default {
                 //     value: "emailid"
                 // },
                 {
-                    text: "Publication",
+                    text: "Dataset Name",
                     align: "start",
                     sortable: false,
                     value: "publication"
