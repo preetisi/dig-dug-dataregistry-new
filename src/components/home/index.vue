@@ -42,7 +42,13 @@ export default {
     },
 
     name: "home",
-    methods: {},
+    methods: {
+        // getUser: function() {
+        //     // console.log("i am the username", this.$route.query.user);
+        //     // this.userid = this.$route.query.user
+        //     return "/datasetsList/?user=" + this.$route.query.user;
+        // }
+    },
     computed: {
         shownSignin: function() {
             this.$router.push("/login");
@@ -56,7 +62,10 @@ export default {
         }
     },
     data() {
-        return { fakeFeed };
+        return { fakeFeed, userid: "" };
     }
+    // created: function() {
+    //     this.getUser();
+    // }
 };
 </script>
