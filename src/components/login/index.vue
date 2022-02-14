@@ -4,7 +4,7 @@
         <form class="login" @submit.prevent="login">
             <h1>Sign in</h1>
             <label>User name</label>
-            <input required v-model="username" type="text" placeholder="Snoopy" />
+            <input required v-model="username" type="text" placeholder="Username" />
             <label>Password</label>
             <input required v-model="password" type="password" placeholder="Password" />
             <hr />
@@ -30,8 +30,8 @@ export default {
 
     data() {
         return {
-            username: "diguser",
-            password: "type2diabetes"
+            username: "",
+            password: ""
         };
     },
     methods: {
