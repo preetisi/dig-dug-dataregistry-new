@@ -1,12 +1,12 @@
 <template>
     <v-row align="center" class="list">
-        <v-col cols="12" md="8">
+        <!-- <v-col cols="12" md="8">
             <v-text-field v-model="dataset_id" label="Search by email id"></v-text-field>
-        </v-col>
+        </v-col>-->
 
-        <v-col>
+        <!-- <v-col>
             <v-btn small @click="searchByEmailID">Search</v-btn>
-        </v-col>
+        </v-col>-->
 
         <v-col cols="12" sm="12">
             <v-card-title>Registered Datasets</v-card-title>
@@ -47,12 +47,12 @@ export default {
             currentIndex: -1,
             dataset: "",
             headers: [
-                {
-                    text: "Email id",
-                    align: "start",
-                    sortable: false,
-                    value: "emailid"
-                },
+                // {
+                //     text: "Email id",
+                //     align: "start",
+                //     sortable: false,
+                //     value: "emailid"
+                // },
                 {
                     text: "Publication",
                     align: "start",

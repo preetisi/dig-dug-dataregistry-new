@@ -4,14 +4,14 @@
 
         <div v-if="!submitted">
             <v-form ref="form" lazy-validation>
-                <v-text-field
+                <!-- <v-text-field
                     v-model="dataset.emailid"
                     :rules="[(v) => !!v || 'Email id is required']"
                     label="Email ID"
                     required
                     outlined
                     dense
-                ></v-text-field>
+                ></v-text-field>-->
                 <v-text-field
                     v-model="dataset.publication"
                     :rules="[(v) => !!v || 'Publication is required']"
