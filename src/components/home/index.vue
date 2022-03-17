@@ -5,10 +5,11 @@
             <h1>Welcome to KPN Data registry</h1>
             <feed-item v-for="(feed, index) in fakeFeed" :key="index" :feed="feed" />
 
-            <v-btn to="/datasetsList/?user=preeti" block elevation="2">Registered datasets</v-btn>
-
+            <v-btn to="/datasetsList" block elevation="2">Registered datasets</v-btn>
+          
+            <!-- <v-btn to="/datasetsList/?user=jasonflannick" block elevation="2">Registered datasets</v-btn>  -->
             <span>&nbsp;</span>
-            <v-btn to="/addDatasets/?user=preeti" block elevation="2">Add new datasets</v-btn>
+            <v-btn to="/addDatasets/" block elevation="2">Add new datasets</v-btn>
         </div>
         <div v-if="!isAuthenticated && authStatus !== 'loading'">
             <h1>Welcome to KPN Data Registry !</h1>

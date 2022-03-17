@@ -10,7 +10,12 @@
 
         <v-col cols="12" sm="12">
             <v-card-title>Registered Datasets</v-card-title>
-
+            <v-tabs background-color="#97cde6" center-active dark>
+                <v-tab>All Data types</v-tab>
+                <v-tab>Annotations</v-tab>
+                <v-tab>Experiments</v-tab>
+                <v-tab>Single Cell Embeddings</v-tab>
+            </v-tabs>
             <v-data-table
                 style="width = 100%"
                 :headers="headers"
@@ -118,20 +123,39 @@ export default {
             console.log(rowsKey);
         },
         retrieveTutorials() {
-            DataRegistrationService.getAll()
-                .then(response => {
-                    this.datasets = response.data
-                        .map(this.getDisplayTutorial)
-                        .filter(x => x.datasetname !== "")
-                        .filter(x => x.datasetid !== "");
+            console.log("I am the user" + this.$route.query.user);
+            if (this.$route.query.user == "noelb") {
+                DataRegistrationService.getAll()
+                    .then(response => {
+                        this.datasets = response.data
+                            .map(this.getDisplayTutorial)
+                            .filter(x => x.emailid == "noelb@gmail.com");
 
-                    console.log(
-                        response.data.filter(x => x.datasetname !== "")
-                    );
-                })
-                .catch(e => {
-                    console.log(e);
-                });
+                        console.log(
+                            response.data.filter(
+                                x => x.emailid == "noelb@gmail.com"
+                            )
+                        );
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            } else {
+                DataRegistrationService.getAll()
+                    .then(response => {
+                        this.datasets = response.data
+                            .map(this.getDisplayTutorial)
+                            .filter(x => x.datasetname !== "")
+                            .filter(x => x.datasetid !== "");
+
+                        console.log(
+                            response.data.filter(x => x.datasetname !== "")
+                        );
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            }
         },
 
         refreshList() {

@@ -36,6 +36,21 @@
                     outlined
                     dense
                 ></v-text-field>
+                <v-text-field
+                    v-model="dataset.contact"
+                    :rules="[(v) => !!v || 'Contact email id is required']"
+                    label="Who should be contacted"
+                    required
+                    outlined
+                    dense
+                ></v-text-field>
+                <v-select
+                    v-model="dataset.share"
+                    :items="sharingoptions"
+                    label="How would you like to share your dataset?"
+                    dense
+                    multiple
+                ></v-select>
                 <!-- Ancestries -->
                 <v-select v-model="dataset.ancestry" :items="ancestries" label="Ancestries" dense></v-select>
                 <v-select v-model="dataset.technology" :items="tech" label="Technology" dense></v-select>
@@ -99,7 +114,8 @@
                     <v-btn color="success" @click="newTutorial">Add</v-btn>
                 </v-card-actions>
             </v-card>
-            <v-btn to="/datasetsList" block elevation="2">View your registered datasets</v-btn>
+            <!-- <v-btn to="/datasetsList" block elevation="2">View your registered datasets</v-btn> -->
+            <v-btn to="/datasetsList/?user=jasonflannick" block elevation="2">Registered datasets</v-btn>
         </div>
     </div>
 </template>
@@ -120,13 +136,18 @@ export default {
             Dichotomous: true,
             Continuous: false,
             trackingnumber: Math.floor(Math.random() * 35897) + "_GWAS",
-
+            contact: "",
             dataset: {
                 id: null,
                 dataset_id: ""
             },
             submitted: false,
             ancestry: "",
+            sharingoptions: [
+                "Download link",
+                "Dataset Inspector",
+                "Full Inspector"
+            ],
             ancestries: [
                 { text: "African American", value: "AA" },
                 { text: "Eruropean American", value: "EA" },
@@ -148,6 +169,7 @@ export default {
         saveTutorial() {
             var data = {
                 emailid: this.dataset.emailid,
+                share: this.dataset.share,
                 datasetname: this.dataset.datasetname,
                 publication: this.dataset.publication,
                 phenotype: this.dataset.phenotype,

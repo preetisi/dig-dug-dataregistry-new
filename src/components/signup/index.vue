@@ -6,14 +6,14 @@
 
         <div v-if="!submitted">
             <v-form ref="form" lazy-validation>
-                <!-- <v-text-field
+                <v-text-field
                     v-model="emailid"
                     :rules="[(v) => !!v || 'Email id is required']"
                     label="Email ID"
                     required
                     outlined
                     dense
-                ></v-text-field> -->
+                ></v-text-field>
                 <v-text-field
                     v-model="instituition"
                     :rules="[(v) => !!v || 'Instituition is required']"
